@@ -1,23 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { useCounter } from './common/hooks/useCounter';
+import SimpleAccess from './components/SimpleAccess';
+import { Provider } from './providers/Provider';
+import DeepAccess from './components/DeepAccess';
+import ArrayAccess from './components/ArrayAccess';
 
 function App() {
+  let [counter, inc] = useCounter()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{ background: "red", height: 800 }}>
+      {counter % 2 === 0 && <Provider>
+        <SimpleAccess />
+        <DeepAccess />
+        <ArrayAccess />
+      </Provider>}
+      <button onClick={() => {
+        inc();
+        setTimeout(inc, 100);
+      }}>reset</button>
     </div>
   );
 }
